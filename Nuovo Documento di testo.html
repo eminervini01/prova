@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Una sorpresa per te ❤️</title>
+  <style>
+    body {
+      background: linear-gradient(#ff758c, #ff7eb3);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .box {
+      background: rgba(255,255,255,0.2);
+      padding: 30px;
+      border-radius: 15px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: white;
+      color: #ff4d6d;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <h1>Buon San Valentino ❤️</h1>
+    <p>Clicca per scoprire la sorpresa</p>
+    <button onclick="mostra()">Scopri</button>
+    <p id="sorpresa"></p>
+  </div>
+
+  <script>
+    function mostra() {
+      document.getElementById("sorpresa").innerHTML =
+        "🍷 Cena prenotata per due <br>📍 Ristorante XYZ <br>🕯️ 14 Febbraio - ore 20:30";
+    }
+  </script>
+</body>
+</html>
