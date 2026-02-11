@@ -1,58 +1,97 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Una sorpresa per te ❤️</title>
-  <style>
-    body {
-      background: linear-gradient(#ff758c, #ff7eb3);
-      font-family: Arial, sans-serif;
-      text-align: center;
-      color: white;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una sorpresa per te ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff0f3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
 
-    .box {
-      background: rgba(255,255,255,0.2);
-      padding: 30px;
-      border-radius: 15px;
-      animation: fadeIn 2s ease-in-out;
-    }
+        /* Contenitore principale più largo */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 800px; /* Impedisce che il testo sia troppo stretto */
+            margin: 0 auto;
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
+        .messaggio {
+            font-size: 2.2rem;
+            color: #d90429;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            line-height: 1.4;
+        }
 
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      background: white;
-      color: #ff4d6d;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+        .active {
+            opacity: 1;
+            position: relative; /* Lo riporta nel flusso per mostrare i bottoni sotto */
+        }
+
+        /* Bottoni */
+        .btn-group {
+            margin-top: 30px;
+            display: none; /* Nascosti all'inizio */
+            gap: 20px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-weight: bold;
+        }
+
+        #btnSi { background-color: #ff4d6d; color: white; }
+        #btnNo { background-color: #adb5bd; color: white; }
+
+        button:hover { transform: scale(1.1); }
+
+        /* Cuori */
+        .cuore {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: caduta linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes caduta {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="box">
-    <h1>Buon San Valentino ❤️</h1>
-    <p>Clicca per scoprire la sorpresa</p>
-    <button onclick="mostra()">Scopri</button>
-    <p id="sorpresa"></p>
-  </div>
 
-  <script>
-    function mostra() {
-      document.getElementById("sorpresa").innerHTML =
-        "🍷 Cena prenotata per due <br>📍 Ristorante XYZ <br>🕯️ 14 Febbraio - ore 20:30";
-    }
-  </script>
-</body>
-</html>
+    <div class="container">
+        <div id="msg1" class="messaggio active">
+            Visto che c'è la partita, quest'anno San Valentino viene un giorno prima...
+        </div>
+
+        <div id="msg2" class="messaggio">
+            ...quindi ti aspetto per una cenetta
