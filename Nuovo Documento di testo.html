@@ -18,38 +18,32 @@
             text-align: center;
         }
 
-        /* Contenitore principale più largo */
         .container {
+            width: 90%;
+            max-width: 800px;
             position: relative;
             z-index: 10;
-            width: 90%;
-            max-width: 800px; /* Impedisce che il testo sia troppo stretto */
-            margin: 0 auto;
         }
 
         .messaggio {
             font-size: 2.2rem;
             color: #d90429;
             font-weight: bold;
+            line-height: 1.4;
+            display: none; /* Tutti nascosti all'inizio */
             opacity: 0;
             transition: opacity 1s ease-in-out;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            line-height: 1.4;
         }
 
-        .active {
+        /* Classe per mostrare i messaggi */
+        .show {
+            display: block !important;
             opacity: 1;
-            position: relative; /* Lo riporta nel flusso per mostrare i bottoni sotto */
         }
 
-        /* Bottoni */
         .btn-group {
             margin-top: 30px;
-            display: none; /* Nascosti all'inizio */
+            display: flex;
             gap: 20px;
             justify-content: center;
         }
@@ -62,14 +56,13 @@
             cursor: pointer;
             transition: transform 0.2s;
             font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         #btnSi { background-color: #ff4d6d; color: white; }
         #btnNo { background-color: #adb5bd; color: white; }
-
         button:hover { transform: scale(1.1); }
 
-        /* Cuori */
         .cuore {
             position: absolute;
             color: #ff4d6d;
@@ -89,9 +82,4 @@
 <body>
 
     <div class="container">
-        <div id="msg1" class="messaggio active">
-            Visto che c'è la partita, quest'anno San Valentino viene un giorno prima...
-        </div>
-
-        <div id="msg2" class="messaggio">
-            ...quindi ti aspetto per una cenetta
+        <div id="msg1"
