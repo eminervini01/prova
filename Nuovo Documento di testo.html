@@ -12,33 +12,52 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #fff0f3;
+            background: radial-gradient(circle, #2b0008 0%, #000000 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             text-align: center;
+            transition: background 3s ease;
+        }
+
+        body.romantico {
+            background: radial-gradient(circle, #fff0f3 0%, #ffccd5 100%);
         }
 
         .container {
             width: 90%;
             max-width: 800px;
-            position: relative;
             z-index: 10;
         }
 
         .messaggio {
             font-size: 2.2rem;
-            color: #d90429;
+            color: #ffffff;
             font-weight: bold;
             line-height: 1.4;
-            display: none; /* Tutti nascosti all'inizio */
+            display: none;
             opacity: 0;
             transition: opacity 1s ease-in-out;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
 
-        /* Classe per mostrare i messaggi */
+        .messaggio.dolce {
+            color: #d90429;
+            text-shadow: none;
+        }
+
         .show {
             display: block !important;
             opacity: 1;
+        }
+
+        .mistero {
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
         }
 
         .btn-group {
@@ -49,19 +68,33 @@
         }
 
         button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            padding: 15px 40px;
+            font-size: 1.3rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: transform 0.2s;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         #btnSi { background-color: #ff4d6d; color: white; }
         #btnNo { background-color: #adb5bd; color: white; }
         button:hover { transform: scale(1.1); }
+
+        /* Firma finale */
+        .firma {
+            margin-top: 40px;
+            font-weight: normal;
+            color: #ff4d6d;
+        }
+
+        .credits {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            display: block;
+            margin-top: 10px;
+        }
 
         .cuore {
             position: absolute;
@@ -82,4 +115,75 @@
 <body>
 
     <div class="container">
-        <div id="msg1"
+        <div id="msg1" class="messaggio mistero show">Visto che quest'anno c'è un piccolo intoppo...</div>
+        <div id="msg2" class="messaggio mistero">La cena di San Valentino è anticipata un pochino...</div>
+        <div id="msg3" class="messaggio dolce">Ti aspetto per una cena romantica tutta per noi, in un posto a "sorpresa" 🌹</div>
+        <div id="msg4" class="messaggio dolce">Quindi che fai, accetti?
+            <div class="btn-group">
+                <button id="btnSi" onclick="accetta()">Accetto ❤️</button>
+                <button id="btnNo" onclick="rifiuta()">No</button>
+            </div>
+        </div>
+
+        <div id="msgFinale" class="messaggio dolce">
+            Sapevo che avresti detto di sì! <br> Preparati, sarà magico. ✨
+            <div class="firma">
+                Da Manu
+                <span class="credits">con la partecipazione di Chat e Gemini</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let pioggiaAttiva = false;
+
+        function creaCuore() {
+            if (!pioggiaAttiva) return;
+            const cuore = document.createElement('div');
+            cuore.classList.add('cuore');
+            cuore.innerHTML = '❤️';
+            cuore.style.left = Math.random() * 100 + 'vw';
+            cuore.style.animationDuration = Math.random() * 3 + 2 + 's';
+            cuore.style.fontSize = Math.random() * 20 + 15 + 'px';
+            document.body.appendChild(cuore);
+            setTimeout(() => cuore.remove(), 5000);
+        }
+
+        function switchMessaggio(idNascondere, idMostrare, callback) {
+            const mEsce = document.getElementById(idNascondere);
+            const mEntra = document.getElementById(idMostrare);
+            mEsce.classList.remove('show');
+            setTimeout(() => {
+                mEsce.style.display = 'none';
+                mEntra.classList.add('show');
+                if(callback) callback();
+            }, 1000);
+        }
+
+        // Timeline
+        setTimeout(() => switchMessaggio('msg1', 'msg2'), 5000);
+        setTimeout(() => {
+            switchMessaggio('msg2', 'msg3', () => {
+                document.body.classList.add('romantico');
+                pioggiaAttiva = true;
+                setInterval(creaCuore, 300);
+            });
+        }, 10000);
+        setTimeout(() => switchMessaggio('msg3', 'msg4'), 15000);
+
+        function rifiuta() {
+            alert("Errore 404: Il tasto 'No' è fuggito per amore. Devi accettare! 😉");
+            accetta();
+        }
+
+        function accetta() {
+            document.getElementById('msg4').classList.remove('show');
+            setTimeout(() => {
+                document.getElementById('msgFinale').classList.add('show');
+                setInterval(creaCuore, 50); 
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
