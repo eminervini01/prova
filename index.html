@@ -12,13 +12,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: radial-gradient(circle, #2b0008 0%, #000000 100%);
+            background: #ffffff; /* Sfondo bianco iniziale */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             text-align: center;
             transition: background 3s ease;
         }
 
+        /* Tema romantico che si attiva alla terza frase */
         body.romantico {
             background: radial-gradient(circle, #fff0f3 0%, #ffccd5 100%);
         }
@@ -31,15 +32,15 @@
 
         .messaggio {
             font-size: 2.2rem;
-            color: #ffffff;
+            color: #000000; /* Testo nero per le prime scritte */
             font-weight: bold;
             line-height: 1.4;
             display: none;
             opacity: 0;
             transition: opacity 1s ease-in-out;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
 
+        /* Stile per le scritte romantiche (rosso) */
         .messaggio.dolce {
             color: #d90429;
             text-shadow: none;
@@ -82,7 +83,6 @@
         #btnNo { background-color: #adb5bd; color: white; }
         button:hover { transform: scale(1.1); }
 
-        /* Firma finale */
         .firma {
             margin-top: 40px;
             font-weight: normal;
@@ -117,6 +117,7 @@
     <div class="container">
         <div id="msg1" class="messaggio mistero show">Visto che quest'anno c'è un piccolo intoppo...</div>
         <div id="msg2" class="messaggio mistero">La cena di San Valentino è anticipata un pochino...</div>
+        
         <div id="msg3" class="messaggio dolce">Ti aspetto per una cena romantica tutta per noi, in un posto a "sorpresa" 🌹</div>
         <div id="msg4" class="messaggio dolce">Quindi che fai, accetti?
             <div class="btn-group">
@@ -160,15 +161,17 @@
             }, 1000);
         }
 
-        // Timeline
+        // Timeline: cambi ogni 5 secondi
         setTimeout(() => switchMessaggio('msg1', 'msg2'), 5000);
+        
         setTimeout(() => {
             switchMessaggio('msg2', 'msg3', () => {
-                document.body.classList.add('romantico');
+                document.body.classList.add('romantico'); // Cambia sfondo in rosa
                 pioggiaAttiva = true;
-                setInterval(creaCuore, 300);
+                setInterval(creaCuore, 300); // Parte la pioggia di cuori
             });
         }, 10000);
+
         setTimeout(() => switchMessaggio('msg3', 'msg4'), 15000);
 
         function rifiuta() {
@@ -180,7 +183,7 @@
             document.getElementById('msg4').classList.remove('show');
             setTimeout(() => {
                 document.getElementById('msgFinale').classList.add('show');
-                setInterval(creaCuore, 50); 
+                setInterval(creaCuore, 50); // Pioggia intensa finale
             }, 1000);
         }
     </script>
